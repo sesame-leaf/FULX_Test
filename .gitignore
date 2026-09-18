@@ -1,0 +1,9 @@
+# Model weights (~16 GB) now live in the project dir — never commit these.
+models/
+
+# Generated images (root level only — leaves answer/ alone)
+/out*.png
+
+.venv/
+__pycache__/
+*.pyc

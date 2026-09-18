@@ -1,0 +1,29 @@
+[project]
+name = "fulx-test"
+version = "0.1.0"
+description = "FLUX.2 [klein] 4B local inference test — Windows 11 / RTX 4070 12GB"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    # Flux2KleinPipeline landed in diffusers 0.37.0; 0.40.0 is the current stable.
+    "diffusers>=0.40.0",
+    # Text encoder is Qwen3-4B -> needs Qwen3 support (transformers >= 4.51).
+    "transformers>=4.51",
+    "accelerate>=0.31.0",
+    # Official win_amd64 wheels exist; required for the NF4 modes.
+    "bitsandbytes>=0.48.0",
+    "safetensors>=0.8.0",
+    "pillow",
+    "torch>=2.6",
+    "torchvision",
+]
+
+# torch/torchvision come from the CUDA 13.0 (driver reports 13.1) wheel index, not PyPI (PyPI ships CPU-only on Windows).
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+torchvision = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
